@@ -1,0 +1,32 @@
+services:
+  db:
+    build:
+      context: images/postgres
+      args:
+        UID: ${USER}
+        GID: ${GROUP}
+        POSTGRES_VERSION: ${POSTGRES_VERSION}
+        TIMEZONE: ${TIMEZONE}
+    restart: always
+    user: ${USER}:${GROUP}
+    environment:
+      POSTGRES_PASSWORD: 123
+    volumes:
+      - ./db/data:/var/lib/postgresql/data
+      - ./db/dump:/dump
+      - /etc/passwd:/etc/passwd:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - ${POSTGRES_PORT}:5432
+    networks:
+      project_net:
+        ipv4_address: ${NETWORK_DB_IP}
+
+networks:
+  project_net:
+    driver: bridge
+    ipam:
+      config:
+        -   subnet: ${NETWORK_SUBNET}
+
