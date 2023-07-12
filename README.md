@@ -10,6 +10,8 @@ git clone git@github.com:e-terin/postgres-study.git
 3. Переходим в папку проекта и запускаем установочный скрипт
  ```shell
 chmod +x ./install.sh
+```
+ ```shell
 ./install.sh
 ```
 4. Проверяем содержимое .env при необходимости конфигурируем переменные
@@ -18,4 +20,8 @@ chmod +x ./install.sh
 
 ```shell
 psql -f /dump/demo-small-20170815.sql -U postgres
+```
+7. Заходим в консольный клиент СУБД
+```shell
+psql -U postgres -d demo
 ```
